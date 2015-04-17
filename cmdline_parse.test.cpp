@@ -5,6 +5,7 @@
  */
 #include "cmdline/args.h"
 #include <catch.hpp>
+#include <sstream>
 
 TEST_CASE( "operator>> test for cmdline::args", "[cmdline][operator][trivial" ) {
     const char * argv[] = {

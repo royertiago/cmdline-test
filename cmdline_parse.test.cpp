@@ -7,7 +7,7 @@
 #include <catch.hpp>
 #include <sstream>
 
-TEST_CASE( "operator>> test for cmdline::args", "[cmdline][operator][trivial" ) {
+TEST_CASE( "operator>> test for cmdline::args", "[cmdline][operator][trivial]" ) {
     const char * argv[] = {
         "program",
         "42",

@@ -16,6 +16,7 @@ TEST_CASE( "Basic cmdline::args test", "[cmdline][trivial]" ) {
     cmdline::args args( 7, argv );
 
     CHECK( args.size() == 6 );
+    CHECK( args.total_size() == 6 );
     CHECK( args.program_name() == "test" );
     args.program_name( "main" );
     CHECK( args.program_name() == "main" );
@@ -23,26 +24,32 @@ TEST_CASE( "Basic cmdline::args test", "[cmdline][trivial]" ) {
     CHECK( args.peek() == "--home" );
     CHECK( args.next() == "--home" );
     CHECK( args.size() == 5 );
+    CHECK( args.total_size() == 6 );
 
     CHECK( args.peek() == "--val" );
     CHECK( args.next() == "--val" );
     CHECK( args.size() == 4 );
+    CHECK( args.total_size() == 6 );
 
     CHECK( args.peek() == "45" );
     CHECK( args.next() == "45" );
     CHECK( args.size() == 3 );
+    CHECK( args.total_size() == 6 );
 
     CHECK( args.peek() == "--" );
     args.shift();
     CHECK( args.size() == 2 );
+    CHECK( args.total_size() == 6 );
 
     CHECK( args.peek() == "file.cpp" );
     args.shift();
     CHECK( args.size() == 1 );
+    CHECK( args.total_size() == 6 );
 
     CHECK( args.peek() == "another.cpp" );
     args.shift();
     CHECK( args.size() == 0 );
+    CHECK( args.total_size() == 6 );
 }
 
 TEST_CASE( "Building cmdline::args via push_back", "[cmdline][push_back]" ) {
@@ -54,27 +61,35 @@ TEST_CASE( "Building cmdline::args via push_back", "[cmdline][push_back]" ) {
 
     args.push_back( "--value" );
     CHECK( args.size() == 1 );
+    CHECK( args.total_size() == 1 );
     args.push_back( "78" );
     CHECK( args.size() == 2 );
+    CHECK( args.total_size() == 2 );
     args.push_back( "file.cpp" );
     CHECK( args.size() == 3 );
+    CHECK( args.total_size() == 3 );
 
     CHECK( args.peek() == "--value" );
     CHECK( args.next() == "--value" );
     CHECK( args.size() == 2 );
+    CHECK( args.total_size() == 3 );
     CHECK( args.peek() == "78" );
     CHECK( args.next() == "78" );
     CHECK( args.size() == 1 );
+    CHECK( args.total_size() == 3 );
     CHECK( args.peek() == "file.cpp" );
     CHECK( args.next() == "file.cpp" );
     CHECK( args.size() == 0 );
+    CHECK( args.total_size() == 3 );
     CHECK( args.program_name() == "custom" );
 
     args.push_back( "another.cpp" );
     CHECK( args.size() == 1 );
+    CHECK( args.total_size() == 4 );
     CHECK( args.peek() == "another.cpp" );
     CHECK( args.next() == "another.cpp" );
     CHECK( args.size() == 0 );
+    CHECK( args.total_size() == 4 );
 }
 
 TEST_CASE( "Subarguments", "[cmdline]" ) {

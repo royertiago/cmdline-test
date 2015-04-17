@@ -21,35 +21,84 @@ TEST_CASE( "Basic cmdline::args test", "[cmdline][trivial]" ) {
     args.program_name( "main" );
     CHECK( args.program_name() == "main" );
 
+    CHECK( args.peek(0) == "--home" );
+    CHECK( args.peek(1) == "--val" );
+    CHECK( args.peek(2) == "45" );
+    CHECK( args.peek(3) == "--" );
+    CHECK( args.peek(4) == "file.cpp" );
+    CHECK( args.peek(5) == "another.cpp" );
+
     CHECK( args.peek() == "--home" );
     CHECK( args.next() == "--home" );
     CHECK( args.size() == 5 );
     CHECK( args.total_size() == 6 );
+
+    CHECK( args.peek(-1) == "--home" );
+    CHECK( args.peek(0) == "--val" );
+    CHECK( args.peek(1) == "45" );
+    CHECK( args.peek(2) == "--" );
+    CHECK( args.peek(3) == "file.cpp" );
+    CHECK( args.peek(4) == "another.cpp" );
 
     CHECK( args.peek() == "--val" );
     CHECK( args.next() == "--val" );
     CHECK( args.size() == 4 );
     CHECK( args.total_size() == 6 );
 
+    CHECK( args.peek(-2) == "--home" );
+    CHECK( args.peek(-1) == "--val" );
+    CHECK( args.peek(0) == "45" );
+    CHECK( args.peek(1) == "--" );
+    CHECK( args.peek(2) == "file.cpp" );
+    CHECK( args.peek(3) == "another.cpp" );
+
     CHECK( args.peek() == "45" );
     CHECK( args.next() == "45" );
     CHECK( args.size() == 3 );
     CHECK( args.total_size() == 6 );
+
+    CHECK( args.peek(-3) == "--home" );
+    CHECK( args.peek(-2) == "--val" );
+    CHECK( args.peek(-1) == "45" );
+    CHECK( args.peek(0) == "--" );
+    CHECK( args.peek(1) == "file.cpp" );
+    CHECK( args.peek(2) == "another.cpp" );
 
     CHECK( args.peek() == "--" );
     args.shift();
     CHECK( args.size() == 2 );
     CHECK( args.total_size() == 6 );
 
+    CHECK( args.peek(-4) == "--home" );
+    CHECK( args.peek(-3) == "--val" );
+    CHECK( args.peek(-2) == "45" );
+    CHECK( args.peek(-1) == "--" );
+    CHECK( args.peek(0) == "file.cpp" );
+    CHECK( args.peek(1) == "another.cpp" );
+
     CHECK( args.peek() == "file.cpp" );
     args.shift();
     CHECK( args.size() == 1 );
     CHECK( args.total_size() == 6 );
 
+    CHECK( args.peek(-5) == "--home" );
+    CHECK( args.peek(-4) == "--val" );
+    CHECK( args.peek(-3) == "45" );
+    CHECK( args.peek(-2) == "--" );
+    CHECK( args.peek(-1) == "file.cpp" );
+    CHECK( args.peek(0) == "another.cpp" );
+
     CHECK( args.peek() == "another.cpp" );
     args.shift();
     CHECK( args.size() == 0 );
     CHECK( args.total_size() == 6 );
+
+    CHECK( args.peek(-6) == "--home" );
+    CHECK( args.peek(-5) == "--val" );
+    CHECK( args.peek(-4) == "45" );
+    CHECK( args.peek(-3) == "--" );
+    CHECK( args.peek(-2) == "file.cpp" );
+    CHECK( args.peek(-1) == "another.cpp" );
 }
 
 TEST_CASE( "Building cmdline::args via push_back", "[cmdline][push_back]" ) {
@@ -69,6 +118,8 @@ TEST_CASE( "Building cmdline::args via push_back", "[cmdline][push_back]" ) {
     CHECK( args.size() == 3 );
     CHECK( args.total_size() == 3 );
 
+    CHECK( args.peek(2) == "file.cpp" );
+
     CHECK( args.peek() == "--value" );
     CHECK( args.next() == "--value" );
     CHECK( args.size() == 2 );
@@ -83,6 +134,8 @@ TEST_CASE( "Building cmdline::args via push_back", "[cmdline][push_back]" ) {
     CHECK( args.total_size() == 3 );
     CHECK( args.program_name() == "custom" );
 
+    CHECK( args.peek(-1) == "file.cpp" );
+
     args.push_back( "another.cpp" );
     CHECK( args.size() == 1 );
     CHECK( args.total_size() == 4 );
@@ -90,6 +143,11 @@ TEST_CASE( "Building cmdline::args via push_back", "[cmdline][push_back]" ) {
     CHECK( args.next() == "another.cpp" );
     CHECK( args.size() == 0 );
     CHECK( args.total_size() == 4 );
+
+    CHECK( args.peek(-4) == "--value" );
+    CHECK( args.peek(-3) == "78" );
+    CHECK( args.peek(-2) == "file.cpp" );
+    CHECK( args.peek(-1) == "another.cpp" );
 }
 
 TEST_CASE( "Subarguments", "[cmdline]" ) {

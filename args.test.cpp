@@ -1,6 +1,6 @@
 /* Unit test for the class cmdline::args.
  */
-#include "cmdline/args.h"
+#include "cmdline/args.hpp"
 #include <catch.hpp>
 
 TEST_CASE( "Basic cmdline::args test", "[cmdline][trivial]" ) {

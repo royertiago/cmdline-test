@@ -1,6 +1,6 @@
 /* Unit test for the class cmdline::range_parser.
  */
-#include "cmdline/args.h"
+#include "cmdline/args.hpp"
 #include <catch.hpp>
 #include <sstream>
 

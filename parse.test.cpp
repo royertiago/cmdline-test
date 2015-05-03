@@ -3,7 +3,7 @@
  * Altough cmdline/parse.h and cmdline/args.h must be used together,
  * seems to be better to separate their test cases.
  */
-#include "cmdline/args.h"
+#include "cmdline/args.hpp"
 #include <catch.hpp>
 #include <sstream>
 
